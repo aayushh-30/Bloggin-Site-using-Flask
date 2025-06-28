@@ -1,5 +1,6 @@
 from sqlalchemy import Table, Column, Integer, ForeignKey
-from sqlalchemy.orm import relationship,Base
+from sqlalchemy.orm import relationship
+from db import Base
 
 # This is a bridge table with two foreign keys
 post_tag_association = Table(

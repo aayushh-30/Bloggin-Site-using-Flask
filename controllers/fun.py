@@ -1,7 +1,7 @@
-from app import engine
+from db import engine,Session
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.exc import SQLAlchemyError
-from ..models.post import Post
+from models.post import Post
 
 Session = sessionmaker(bind=engine)
 

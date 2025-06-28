@@ -3,7 +3,7 @@ from sqlalchemy.orm import declarative_base, relationship
 from models.mixin import TimeStampMixin  
 from models.user import User
 from models.associateTable import post_tag_association
-from models import Base             
+from db import Base             
 
 
 class Post(TimeStampMixin, Base):

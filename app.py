@@ -1,9 +1,11 @@
 from flask import Flask
-from models.post import Post
-from models.tag import Tag
-from models.user import User
+from db import engine, Base
+from routes.post_Routes import post_bp
 
 app = Flask(__name__)
+
+app.register_blueprint(post_bp)
+Base.metadata.create_all(bind=engine)
 
 @app.route("/")
 def Home():

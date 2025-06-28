@@ -1,8 +1,4 @@
-from sqlalchemy import create_engine
-from sqlalchemy.orm import declarative_base, sessionmaker
-
-
-engine = create_engine("sqlite:///students.db", echo=True)
-Session = sessionmaker(bind=engine)
-
-Base = declarative_base()
+from .user import User
+from .post import Post
+from .tag import Tag
+from .associateTable import post_tag_association  

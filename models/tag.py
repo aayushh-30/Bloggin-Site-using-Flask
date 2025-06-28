@@ -2,7 +2,7 @@ from sqlalchemy import Column, Integer, String
 from sqlalchemy.orm import declarative_base,relationship
 from models.mixin import TimeStampMixin
 from models.associateTable import post_tag_association
-from models import Base
+from db import Base
 
 class Tag(TimeStampMixin, Base):
     __tablename__ = "Tags"
