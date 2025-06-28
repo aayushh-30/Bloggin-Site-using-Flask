@@ -1,7 +1,6 @@
 from sqlalchemy import Column, Integer, String
 from sqlalchemy.orm import relationship
 from models.mixin import TimeStampMixin
-#from models.post import Post
 from db import Base
 
 # Simple email validation function
