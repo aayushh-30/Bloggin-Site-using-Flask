@@ -1,0 +1,95 @@
+/* Reset some default styles */
+body, h1, h2, h3, p, ul {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    line-height: 1.6;
+    color: #333;
+}
+
+/* Header styles */
+header {
+    background-color: #333;
+    color: #fff;
+    padding: 1rem 0;
+}
+
+header nav {
+    width: 90%;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header nav h1 a {
+    color: white;
+    text-decoration: none;
+}
+
+header ul {
+    list-style: none;
+    display: flex;
+    gap: 1rem;
+}
+
+header ul li a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+header ul li a:hover {
+    text-decoration: underline;
+}
+
+/* Main content */
+main {
+    width: 90%;
+    margin: 2rem auto;
+    background-color: #fff;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+article {
+    margin-bottom: 2rem;
+}
+
+article h3 {
+    color: #0077cc;
+}
+
+a {
+    color: #0077cc;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Footer styles */
+footer {
+    text-align: center;
+    padding: 1rem;
+    background-color: #eee;
+    margin-top: 2rem;
+    font-size: 0.9rem;
+    color: #555;
+}
+
+/* Flash messages */
+.flashes {
+    list-style: none;
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+    background-color: #ffecb3;
+    border: 1px solid #ffd54f;
+    border-radius: 4px;
+}
