@@ -34,14 +34,14 @@ def create_post(form):
         post = Post(
                     title = form["title"],
                     body = form["body"],
-                    is_published = form["is_published"],
+                    is_published = form["is_published"] in ['true', 'True', True, 1],
                     )
         session.add(post)
         session.commit()
-        return f"Posted"
+        return "Posted"
     except SQLAlchemyError as e:
         session.rollback()
-        return e
+        return str(e)
     finally:
         session.close()
 

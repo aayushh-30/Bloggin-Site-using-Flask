@@ -11,9 +11,10 @@ class User(TimeStampMixin, Base):
     __tablename__ = "Users"
 
 
-    id = Column(Integer, primary_key=True)
+    id = Column(Integer, primary_key=True,autoincrement=True)
     _email = Column("email", String, unique=True, nullable=False)
     username = Column(String, unique=True, nullable=False)
+    password = Column(String,nullable=False)
 
     # One-to-many relationship: one user can have many posts
     posts = relationship("Post", back_populates="author")
