@@ -8,7 +8,7 @@ def login():
         return render_template('loginForm.html')
     form_data = request.form
     status = loginUser(form_data)
-    return status
+    return render_template("home.html")
     
 @user_bp.route('/signup', methods=['GET','POST'])
 def signup():
@@ -16,5 +16,5 @@ def signup():
         return render_template('signUpform.html')
     form_data = request.form
     status = createUser(form_data)
-    return status
+    return render_template("loginForm.html")
 

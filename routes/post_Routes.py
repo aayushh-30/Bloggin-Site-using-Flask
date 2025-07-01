@@ -1,4 +1,4 @@
-from flask import Blueprint, request,url_for,redirect
+from flask import Blueprint, request,url_for,redirect,render_template
 from controllers.fun import list_posts,get_post,update_post,create_post
 
 #Blueprint creation for folder structure, regd to app.py
@@ -25,9 +25,11 @@ def Post_Updation(id):
     update_post(id,form_data)
     return redirect(url_for('posts.show_posts'))
 
-@post_bp.route('/create', methods=['POST'])
+@post_bp.route('/create', methods=['GET','POST'])
 def post_creation():
-    form_data = request.form.to_dict()
+    if request.method == 'GET':
+        return render_template('createPost.html')
+    form_data = request.form
     result = create_post(form_data)
     return result
 
