@@ -1,5 +1,5 @@
 from flask import Blueprint, request,url_for,redirect,render_template
-from controllers.fun import list_posts,get_post,update_post,create_post
+from controllers.fun import delete_Post, list_posts,get_post,update_post,create_post
 
 #Blueprint creation for folder structure, regd to app.py
 post_bp = Blueprint('posts', __name__, url_prefix='/posts')
@@ -10,8 +10,8 @@ post_bp = Blueprint('posts', __name__, url_prefix='/posts')
 
 @post_bp.route('/', methods=['GET'])
 def show_posts():
-    return list_posts(True)
-
+    posts = list_posts(True)
+    return render_template('base.html',allPosts = posts)
 @post_bp.route('/<int:id>',methods = ['GET'])
 def find_post(id):
     post =  get_post(id)
@@ -32,5 +32,15 @@ def post_creation():
     form_data = request.form
     result = create_post(form_data)
     return result
+
+# @post_bp.route('/delete/<int:id>',methods = ['DELETE'])
+# def delete_post(id):
+#     status,status_code = delete_Post(id)
+#     if status_code == 200:
+#         return {{url_for('posts.show_posts')}}
+    
+#     return {{}}
+
+    
 
 

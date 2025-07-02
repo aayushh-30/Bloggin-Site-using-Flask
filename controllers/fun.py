@@ -83,3 +83,33 @@ def update_post(post_id, form):
 def list_drafts():
     posts = list_posts(published=False)
     return posts
+
+def delete_Post(post_id):
+    session = Session()
+    try:
+        post = session.query(Post).get(post_id)
+        if not post:
+            return f"Post with id {post_id} not found.",401
+
+        session.delete(post)
+        session.commit()
+        return f"Post with id {post_id} deleted successfully.",200
+    except SQLAlchemyError as e:
+        session.rollback()
+        return e
+    finally:
+        session.close()
+
+def getAllPostOfUser(user_id):
+    session = Session()
+    try:
+        posts = session.query(Post).filter(Post.user_id == user_id).all()
+        if not posts:
+            return f"No posts found for user with id {user_id}.", 404
+
+        return posts, 200
+    except SQLAlchemyError as e:
+        session.rollback()
+        return str(e), 500
+    finally:
+        session.close()

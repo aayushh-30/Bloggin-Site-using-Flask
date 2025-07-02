@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block title %}All Posts | My Blog{% endblock %}
+
+{% block content %}
+<h2>All Blog Posts</h2>
+
+<table border="1" cellpadding="10" cellspacing="0">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Title</th>
+            <th>Body</th>
+            <th>Published</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for post in posts %}
+        <tr>
+            <td>{{ post.id }}</td>
+            <td>{{ post.title }}</td>
+            <td>{{ post.body[:100] }}{% if post.body|length > 100 %}...{% endif %}</td>
+            <td>{{ 'Yes' if post.is_published else 'No' }}</td>
+            <td>
+                <form method="POST" action="{{ url_for('posts.delete_post', post_id=post.id) }}" style="display:inline;">
+                    <button type="submit" onclick="return confirm('Delete this post?')">Delete</button>
+                </form>
+                
+                <a href="{{ url_for('posts.edit_post', post_id=post.id) }}">
+                    <button>Edit</button>
+                </a>
+
+                <form method="POST" action="{{ url_for('posts.toggle_publish', post_id=post.id) }}" style="display:inline;">
+                    {% if post.is_published %}
+                        <button type="submit">Unpublish</button>
+                    {% else %}
+                        <button type="submit">Publish</button>
+                    {% endif %}
+                </form>
+            </td>
+        </tr>
+        {% else %}
+        <tr>
+            <td colspan="5">No posts found.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

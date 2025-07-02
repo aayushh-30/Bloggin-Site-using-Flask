@@ -45,9 +45,9 @@ def loginUser(form_data, methods=['POST']):
             return "User does not exist"
 
         if user.password == password:
-            return "Login successful"
+            return "Login successful",user.username,200
         else:
-            return "Incorrect password"
+            return "Incorrect password",None,400
 
     except SQLAlchemyError as e:
         session.rollback()

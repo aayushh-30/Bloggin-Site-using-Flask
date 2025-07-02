@@ -3,43 +3,151 @@
 <head>
     <meta charset="UTF-8">
     <title>{% block title %}My Blog{% endblock %}</title>
-    <link rel="stylesheet" href="../static/style.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+        }
+
+        header {
+            background-color: #333;
+            color: white;
+            padding: 1rem;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav h1 a {
+            color: white;
+            text-decoration: none;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 1rem;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+        }
+
+        main {
+            padding: 2rem;
+        }
+
+        .post-block {
+            background-color: white;
+            border: 1px solid #ccc;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .post-block h2 {
+            margin-top: 0;
+            color: #333;
+        }
+
+        .post-preview {
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-line-clamp: 3; /* number of lines to show */
+            -webkit-box-orient: vertical;
+        }
+
+        .read-more {
+            color: blue;
+            cursor: pointer;
+            margin-top: 10px;
+            display: inline-block;
+        }
+
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 1rem;
+            margin-top: 2rem;
+        }
+
+        .flashes {
+            padding: 1rem;
+            background-color: #ffdddd;
+            border: 1px solid red;
+            color: #a00;
+            margin-bottom: 1rem;
+            border-radius: 5px;
+        }
+    </style>
 </head>
 <body>
 
-    <header>
-        <nav>
-            <h1><a href="{{ url_for('Home') }}">My Blog</a></h1>
-            <ul>
-                <li><a href="{{ url_for('Home') }}">Home</a></li>
-                <li><a href="{{ url_for('Home') }}">Posts</a></li>
-                <li><a href="{{ url_for('users.login') }}">Login</a></li>
-                <li><a href="{{ url_for('users.signup') }}">SignUp</a></li>
+<header>
+    <nav>
+        <h1><a href="{{ url_for('Home') }}">My Blog</a></h1>
+        <ul>
+            <li><a href="{{ url_for('Home') }}">Home</a></li>
+            <li><a href="{{ url_for('Home') }}">Posts</a></li>
+            <li><a href="{{ url_for('users.login') }}">Login</a></li>
+            <li><a href="{{ url_for('users.signup') }}">SignUp</a></li>
+        </ul>
+    </nav>
+</header>
 
-            </ul>
-        </nav>
-    </header>
+<main>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <ul class="flashes">
+        {% for message in messages %}
+        <li>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    {% endwith %}
 
-    <main>
-        {% with messages = get_flashed_messages() %}
-          {% if messages %}
-            <ul class="flashes">
-              {% for message in messages %}
-                <li>{{ message }}</li>
-              {% endfor %}
-            </ul>
-          {% endif %}
-        {% endwith %}
-        
-        {% block content %}
-        <!-- Page-specific content goes here -->
-        {% endblock %}
-    </main>
+    {% block content %}
+    <section class="posts">
+        {% for post in allPosts %}
+        <div class="post-block">
+            <h2>{{ post.title }}</h2>
+            <p class="post-preview" id="preview-{{ loop.index }}">{{ post.body }}</p>
+            <p class="read-more" onclick="toggleContent({{ loop.index }}, this)">Read more</p>
+        </div>
+        {% else %}
+        <p>No posts available.</p>
+        {% endfor %}
+    </section>
+    {% endblock %}
+</main>
 
-    <footer>
-        <p>&copy; 2025 My Blog. All rights reserved.</p>
-    </footer>
+<footer>
+    <p>&copy; 2025 My Blog. All rights reserved.</p>
+</footer>
+
+<script>
+    function toggleContent(id, link) {
+        const para = document.getElementById("preview-" + id);
+        if (para.classList.contains("post-preview")) {
+            para.classList.remove("post-preview");
+            link.textContent = "Read less";
+        } else {
+            para.classList.add("post-preview");
+            link.textContent = "Read more";
+        }
+    }
+</script>
 
 </body>
 </html>

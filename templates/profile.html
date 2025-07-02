@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block title %}{{ userCred.username }}'s Profile{% endblock %}
+
+{% block content %}
+    <section>
+        <h2>Welcome, {{ userCred.username }}</h2>
+        <div style="margin-bottom: 1rem;">
+            <a href="{{ url_for('posts.new_post') }}" class="read-more">+ Create Post</a> |
+            <a href="{{ url_for('auth.logout') }}" class="read-more" style="color:red;">Logout</a>
+        </div>
+    </section>
+
+    <section class="search-bar" style="margin-bottom: 2rem;">
+        <form method="GET" action="{{ url_for('auth.profile') }}">
+            <input type="text" name="query" placeholder="Search your posts..." value="{{ query }}" 
+                   style="padding: 0.5rem; width: 60%; border-radius: 5px; border: 1px solid #ccc;">
+            <button type="submit" 
+                    style="padding: 0.5rem 1rem; border: none; background-color: #333; color: white; border-radius: 5px;">
+                Search
+            </button>
+        </form>
+    </section>
+
+    <section class="posts">
+        {% if posts %}
+            {% for post in posts %}
+            <div class="post-block">
+                <h2>
+                    <a href="{{ url_for('posts.post_detail', post_id=post.id) }}" style="text-decoration:none; color:inherit;">
+                        {{ post.title }}
+                    </a>
+                    {% if not post.is_published %}
+                        <span style="color: #999; font-size: 0.9rem;">[Draft]</span>
+                    {% endif %}
+                </h2>
+            </div>
+            {% endfor %}
+        {% else %}
+            <p>No posts found.</p>
+        {% endif %}
+    </section>
+{% endblock %}

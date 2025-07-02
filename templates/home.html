@@ -2,43 +2,87 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>{% block title %}My Blog{% endblock %}</title>
-    <link rel="stylesheet" href="../static/style.css">
+    <title>Welcome to My Blog</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(to right, #6a11cb, #2575fc);
+            color: white;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            text-align: center;
+            background-color: rgba(0, 0, 0, 0.4);
+            padding: 3rem;
+            border-radius: 10px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+        }
+
+        .buttons a {
+            text-decoration: none;
+            color: white;
+            background-color: #ff5722;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            transition: background-color 0.3s ease;
+        }
+
+        .buttons a:hover {
+            background-color: #e64a19;
+        }
+
+        @media (max-width: 500px) {
+            h1 {
+                font-size: 2rem;
+            }
+
+            .buttons {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .buttons a {
+                padding: 0.8rem 1.5rem;
+                font-size: 1rem;
+            }
+        }
+    </style>
 </head>
 <body>
 
-    <header>
-        <nav>
-            <h1><a href="{{ url_for('Home') }}">My Blog</a></h1>
-            <ul>
-                <li><a href="{{ url_for('Home') }}">Posts</a></li>
-                <li><a href="{{ url_for('Home') }}">Profile</a></li>
-                <li><a href="{{ url_for('posts.post_creation') }}">Create Post</a></li>
-                <li><a href="{{ url_for('users.login') }}">Logout</a></li>
-            </ul>
-        </nav>
-    </header>
-
-    <main>
-        {% with messages = get_flashed_messages() %}
-          {% if messages %}
-            <ul class="flashes">
-              {% for message in messages %}
-                <li>{{ message }}</li>
-              {% endfor %}
-            </ul>
-          {% endif %}
-        {% endwith %}
-        
-        {% block content %}
-        <!-- Page-specific content goes here -->
-        {% endblock %}
-    </main>
-
-    <footer>
-        <p>&copy; 2025 My Blog. All rights reserved.</p>
-    </footer>
+<div class="container">
+    <h1>Welcome to My Blog</h1>
+    <p>Discover posts, share ideas, and stay inspired.</p>
+    <div class="buttons">
+        <a href="{{ url_for('users.login') }}">Login</a>
+        <a href="{{ url_for('users.signup') }}">Sign Up</a>
+        <a href="{{ url_for('posts.show_posts') }}">Posts</a>
+    </div>
+</div>
 
 </body>
 </html>
